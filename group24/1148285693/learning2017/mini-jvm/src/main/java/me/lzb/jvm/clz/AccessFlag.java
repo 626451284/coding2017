@@ -1,7 +1,7 @@
 package me.lzb.jvm.clz;
 
 /**
- * Created by LZB on 2017/4/14.
+ * @author LZB
  */
 public class AccessFlag {
     private int flagValue;
@@ -18,12 +18,20 @@ public class AccessFlag {
         this.flagValue = flag;
     }
 
-    public boolean isPublicClass(){
+    public boolean isPublicClass() {
         return (this.flagValue & 0x0001) != 0;
     }
-    public boolean isFinalClass(){
+
+    public boolean isFinalClass() {
         return (this.flagValue & 0x0010) != 0;
     }
 
+    public String getFlagString() {
+        if (isPublicClass()) {
+            return "public";
+        } else {
+            return "not public";
+        }
+    }
 
 }

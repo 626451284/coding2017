@@ -10,16 +10,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-
+/**
+ * @author LZB
+ */
 public class ClassFileLoader {
 
     private List<String> clzPaths = new ArrayList<>();
 
     public byte[] readBinaryCode(String className) throws IOException {
-//        String fileName = className.replaceAll(".*\\.", "")  + ".class";
-//        String pkg = className.replaceAll("\\.[^\\.]+$", "");
-//        String packagePath = pkg.replaceAll("\\.", "\\\\");
-
         className = className.replace('.', File.separatorChar) + ".class";
         for (String s : clzPaths) {
             byte[] data = FileUtils.readByteCodes(s + className);
@@ -46,8 +44,13 @@ public class ClassFileLoader {
     }
 
 
-    public ClassFile loadClass(String className) throws IOException {
-        byte[] codes = this.readBinaryCode(className);
+    public ClassFile loadClass(String className) {
+        byte[] codes;
+        try {
+            codes = this.readBinaryCode(className);
+        } catch (IOException e) {
+            return null;
+        }
         ClassFileParser parser = new ClassFileParser(codes);
         return parser.parse();
     }

@@ -1,7 +1,9 @@
 package me.lzb.jvm.constant;
 
+import me.lzb.jvm.print.PrintVisitor;
+
 /**
- * Created by LZB on 2017/4/15.
+ * @author LZB
  */
 public class StringInfo extends ConstantInfo {
     private int type = ConstantInfo.String_info;
@@ -11,9 +13,15 @@ public class StringInfo extends ConstantInfo {
     public StringInfo(ConstantPool pool) {
         super(pool);
     }
+
     @Override
     public int getType() {
         return type;
+    }
+
+    @Override
+    public void print(PrintVisitor visitor) {
+        visitor.visitString(this);
     }
 
     public int getIndex() {
@@ -23,4 +31,9 @@ public class StringInfo extends ConstantInfo {
     public void setIndex(int index) {
         this.index = index;
     }
+
+    public String toString() {
+        return getConstantPool().getUTF8String(index);
+    }
+
 }

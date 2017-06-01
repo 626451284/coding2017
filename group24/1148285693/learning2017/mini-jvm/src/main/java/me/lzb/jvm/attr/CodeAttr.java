@@ -1,7 +1,9 @@
 package me.lzb.jvm.attr;
 
+import me.lzb.jvm.cmd.ByteCodeCommand;
+
 /**
- * Created by LZB on 2017/4/15.
+ * @author LZB
  */
 public class CodeAttr extends AttributeInfo {
     private int maxStack;
@@ -12,13 +14,20 @@ public class CodeAttr extends AttributeInfo {
     private LocalVariableTable localVarTable;
     private StackMapTable stackMapTable;
 
-    public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen, String code /*ByteCodeCommand[] cmds*/) {
+
+    private ByteCodeCommand[] cmds;
+
+    public ByteCodeCommand[] getCmds() {
+        return cmds;
+    }
+
+    public CodeAttr(int attrNameIndex, int attrLen, int maxStack, int maxLocals, int codeLen, String code, ByteCodeCommand[] cmds) {
         super(attrNameIndex, attrLen);
         this.maxStack = maxStack;
         this.maxLocals = maxLocals;
         this.codeLen = codeLen;
         this.code = code;
-        //this.cmds = cmds;
+        this.cmds = cmds;
     }
 
 
